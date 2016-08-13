@@ -110,27 +110,36 @@ promiseFor(function() {
 if(!ourq.length){
 return Promise.delay(500)
 }
-    return promiseGetEmo(ourq[0].text.replace(/\./g, ''))
+    return promiseGetEmo(ourq[0].text.replace(/\./g, '')).timeout(2000)
              .then(function(res) { 
 		console.log(JSON.stringify(res), ourq[0].id)
 		Tweet.update({index:ourq[0].id}, { $set: { emo_class: res }},{ multi: true },function(e, n){ })
 		ourq.shift()
                 return ++count;
-             });
+             })
+		.catch(Promise.TimeoutError, function(e) {
+		    console.log("could not read file within 100ms",ourq[0].text);
+
+ourq.shift()
+		});
 
 }, 0).then(console.log.bind(console, 'all done'));
 
 
-var the_track = 'rio,olympics';
+var the_track = process.argv[2];//'rio,olympics';
+console.log(the_track)
 var stream = client.stream('statuses/filter', {track: the_track});
 stream.on('data', function(event) {
-	//if(event.lang=="en" && event.coordinates!=null){
-		//console.log(event && event.text);
+
+	if(event.lang=="en"){
+	if(event.coordinates!=null){
+		console.log(event && event.text);
 		//console.log(event.coordinates);
-		ourq.push(event)
+		//ourq.push(event)
 		var the_tweet = new Tweet({index:event.id, track:the_track, tweet:event, emo_class:{"k":1}});
 		the_tweet.save();
-	//}
+	}
+	}
 });
  
 stream.on('error', function(error) {
