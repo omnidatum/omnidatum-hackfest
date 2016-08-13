@@ -1,26 +1,32 @@
 var express = require('express');
 var router = express.Router();
+var creds = require('../creds.js')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   
   var Twitter = require('twitter');
    
-  var client = new Twitter({
-    consumer_key: "SfK5F3tXZOrkSay283ohtUyHg",
-    consumer_secret: "60Ad8SaKVwSUtHJWRvVIZjvcuqIee2T6FC9lWwdvpZDBjRAzQE",
-    access_token_key: "548836327-GuTO3cV32VrndSCKiQ1gcYhyfSME6jASzb1fMDMW",
-    access_token_secret: "uHmDMosGx2kqUM5vwah80WHwVyemGTXmcr7ZDfmryZmca"
-  });
-  var params = {q: 'rio', lang: 'en', count: 5};
+  var client = new Twitter(creds);
+  var params = {q: 'rio', lang: 'en', count: 10, geocode:"0,0,1000mi"};
   client.get('search/tweets', params, function(error, tweets, response) {
     if (!error) {
       //console.log(tweets);
       //console.log(response);
       var result =[];
       tweets["statuses"].forEach((tweet) => {
-      	result.push(tweet.text);
+      	if (tweet.geo == null){
+      		result.push("null geo!");
+      	} else if(tweet.coordinates == null){
+      		result.push("null coordinates");
+      	} else {
+      		result.push(tweet.text);
+      	}
+      	
       });
+
+      //console.log(creds);
+
       res.render("users", {tweets:result});
       
     }
