@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  style.
+    html, body {
+      height: 100%;
+    }
+    #map {
+      height: 100%;
+    }
+
+  div(id='map')
+
+  //- form(action="", method="get")
+  //-   input(type="text", name="search", value="#{query}")
+  //-   input(type="button", value="Search")
+
+  script(type='text/javascript').
+    var data = !{JSON.stringify(tweets)};
+
+  script(src='/javascripts/script.js')
+
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAwHWDmqeO0Z1w0jtIB_jmyHM0J-jRfGkU&libraries=visualization&callback=initMap', async='', defer='')
