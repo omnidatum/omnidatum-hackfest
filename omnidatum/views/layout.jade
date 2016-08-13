@@ -6,6 +6,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/bootstrap.min.js')
+    script(src='/javascripts/markerclusterer.js')
   body
     // Static navbar
     nav.navbar.navbar-default.navbar-static-top
@@ -23,7 +24,19 @@ html
               a(href='#') Home
             li
               a(href='#about') About
-          //- ul.nav.navbar-nav.navbar-right
+          ul.nav.navbar-nav.navbar-right
+                form.navbar-form.navbar-left(role='search', action='')
+                  .form-group
+                    select.form-control(name='q')
+                      if query == 'trump'
+                        option(value="trump", selected="selected") Trump
+                        option(value="rio,olympics") Rio
+                      else if query == 'rio,olympics'
+                        option(value="trump") Trump
+                        option(value="rio,olympics", selected="selected") Rio
+
+                    button.btn.btn-default(type='submit') Submit
+
           //-   li
           //-     a(href='../navbar/') Help
         // /.nav-collapse

@@ -1,27 +1,27 @@
 var express = require('express');
 var router = express.Router();
-
+var request = require('request');
 // var creds = require('../creds.js');
 // var Twitter = require('twitter');
 
-var fs = require("fs");
-
-// Synchronous read
-var data = fs.readFileSync('tweets.txt');
-var dump = data.toString().split(/\r?\n/);
-var tweets = [];
-
-for (var i = 0; i < dump.length; i++) {
-  try {
-    raw_tweet = JSON.parse(dump[i]);
-    tweet = {
-      id: raw_tweet.id,
-      text: raw_tweet.text,
-      coordinates: raw_tweet.coordinates.coordinates
-    };
-    tweets.push(tweet);
-  } catch (e) {}
-}
+// var fs = require("fs");
+//
+// // Synchronous read
+// var data = fs.readFileSync('tweets.txt');
+// var dump = data.toString().split(/\r?\n/);
+// var tweets = [];
+//
+// for (var i = 0; i < dump.length; i++) {
+//   try {
+//     raw_tweet = JSON.parse(dump[i]);
+//     tweet = {
+//       id: raw_tweet.id,
+//       text: raw_tweet.text,
+//       coordinates: raw_tweet.coordinates.coordinates
+//     };
+//     tweets.push(tweet);
+//   } catch (e) {}
+// }
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -49,7 +49,34 @@ router.get('/', function(req, res, next) {
   //   console.log('Line from file:', line);
   // });
 
-  res.render('index', { title: 'Tweets', query: search, tweets: tweets });
+  var q = req.query.q;
+
+  if (q) {
+    request('http://150.242.42.16:3000/?track=' + q, function(error, response, body) {
+      if(error) {
+        console.log(error);
+      } else {
+        var tweets = [];
+        var dump = JSON.parse(body);
+
+        for (var i = 0; i < dump.length; i++) {
+          try {
+            object = dump[i];
+            tweet = {
+              id: object.tweet.id,
+              text: object.tweet.text,
+              coordinates: object.tweet.coordinates.coordinates,
+              sentiment: object.emo_class.sentiment,
+              name: object.tweet.user.screen_name
+            };
+            tweets.push(tweet);
+          } catch (e) {}
+        }
+
+        res.render('index', { title: 'Tweets', query: q, tweets: tweets });
+      }
+    });
+  }
 });
 
 module.exports = router;
