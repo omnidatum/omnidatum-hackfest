@@ -41,7 +41,9 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-        var markers = [];
+        var posMarkers = [];
+        var negMarkers = [];
+        var neuMarkers = [];
 
         function pinSymbol(color) {
     return {
@@ -54,6 +56,7 @@
    };
 }
 
+        var emotion = ''
         for (var i = 0; i < 100; i++) {
           var dataTweets = data.tweets[i];
           var latLng = new google.maps.LatLng(dataTweets.place.bounding_box.coordinates[0][0][1],
@@ -63,19 +66,33 @@
           var color = ''
           if(rand < 0.3){
                color ="#F00";
+               emotion = 'neg';      
             } else if (rand > 0.3 && rand < 0.7){
                 color = "#FF0";
+                emotion = 'neu';        
             } else {
-                color = "#0F0";
+                emotion = 'pos';
+                color = "#0F0";       
             }
           var marker = new google.maps.Marker({
             position: latLng,
             
             icon: pinSymbol(color),
           });
-          markers.push(marker);
+          if (emotion == 'pos'){
+            posMarkers.push(marker);
+          } else if (emotion == 'neg'){
+            negMarkers.push(marker);
+          } else {
+            neuMarkers.push(marker);
+          }
+          //markers.push(marker);
         }
-        var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'public/javascripts/js-marker-clusterer-gh-pages/images/m'});
+        var markerClusterPos = new MarkerClusterer(map, posMarkers, {imagePath: 'public/javascripts/js-marker-clusterer-gh-pages/images/m'});
+        var markerClusterNeu = new MarkerClusterer(map, neuMarkers, {imagePath: 'public/javascripts/js-marker-clusterer-gh-pages/images/m'});
+        var markerClusterNeg = new MarkerClusterer(map, negMarkers, {imagePath: 'public/javascripts/js-marker-clusterer-gh-pages/images/m'});
+
+
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
