@@ -10,38 +10,38 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getMarker(sentiment) {
-  var pinColor; // color is a hex value without leading #.
-
-  if (sentiment == 'Positive'){
-    pinColor ="26D64F";
-  } else if (sentiment == 'Negative'){
-    pinColor = "D7263D";
-  } else {
-    pinColor = "FDE74C";
-  }
-
-  var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-  new google.maps.Size(21, 34),
-  new google.maps.Point(0,0),
-  new google.maps.Point(10, 34));
-  var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
-  new google.maps.Size(40, 37),
-  new google.maps.Point(0, 0),
-  new google.maps.Point(12, 35));
-
-  return pinImage;
-}
+// function getMarker(sentiment) {
+//   var pinColor; // color is a hex value without leading #.
+//
+//   if (sentiment == 'Positive'){
+//     pinColor ="26D64F";
+//   } else if (sentiment == 'Negative'){
+//     pinColor = "D7263D";
+//   } else {
+//     pinColor = "FDE74C";
+//   }
+//
+//   var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+//   new google.maps.Size(21, 34),
+//   new google.maps.Point(0,0),
+//   new google.maps.Point(10, 34));
+//   var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+//   new google.maps.Size(40, 37),
+//   new google.maps.Point(0, 0),
+//   new google.maps.Point(12, 35));
+//
+//   return pinImage;
+// }
 
 function getColor(sentiment) {
   var pinColor; // color is a hex value without leading #.
 
-  if (sentiment == 'Positive'){
-    pinColor ="#F00";
-  } else if (sentiment == 'Negative'){
-    pinColor = "#FF0";
+  if (sentiment == 'Positive' || sentiment == 'Verypositive' ) {
+    pinColor ="#26D64F";
+  } else if (sentiment == 'Negative' || sentiment == 'Verynegative' ) {
+    pinColor = "#D7263D";
   } else {
-    pinColor = "#0F0";
+    pinColor = "#FDE74C";
   }
 
   return pinColor;
@@ -49,9 +49,10 @@ function getColor(sentiment) {
 
 function initMap() {
   var center = {lat: 0, lng: 163.4719644};
+
   if (q == 'trump') {
     center = {lat: 35.0931652, lng: -95.527725};
-  } else if (q == 'rio,olmpics') {
+  } else if (q == 'rio,olympics') {
     center = {lat: -22.9103552, lng: -43.7285295};
   }
 
@@ -184,7 +185,7 @@ function initMap() {
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 10,
-        fillOpacity: 0.5,
+        fillOpacity: 0.3,
         fillColor: getColor(tweet.sentiment),
         strokeWeight: 0
       },
@@ -199,15 +200,58 @@ function initMap() {
       infowindow.open(map, marker);
     });
 
-    if (tweet.sentiment == 'Positive'){
+    if (tweet.sentiment == 'Positive' || tweet.sentiment == 'Verypositive'){
       posMarkers.push(marker);
-    } else if (tweet.sentiment == 'Negative'){
+    } else if (tweet.sentiment == 'Negative' || tweet.sentiment == 'Verynegative'){
       negMarkers.push(marker);
     } else {
       neuMarkers.push(marker);
     }
   });
 
+  var total_tweets = posMarkers.length + negMarkers.length + neuMarkers.length;
+
+  var posPer = posMarkers.length / total_tweets * 100;
+  var negPer = negMarkers.length / total_tweets * 100;
+  var neuPer = neuMarkers.length / total_tweets * 100;
+
+  function styleCircles(el, perc) {
+    $(el).css({
+      'width': perc / 100 * 190 + 'px',
+      'height': perc / 100 * 190 + 'px',
+      'line-height': (perc / 100 * 190 < 40 ? 40 : perc / 100 * 190) + 'px',
+      'opacity': 1,
+      'color': '#4c5b5c'
+    }).text(Math.round(perc) + '%');
+  }
+
+  //$(document).ready(function() {
+  window.onload=function(){
+    //setTimeout(function() {
+      styleCircles('.pos', posPer);
+      styleCircles('.neg', negPer);
+      styleCircles('.neu', neuPer);
+    //}, 2000);
+  };
+  // $('.pos').css({
+  //   'width': posPer + '%',
+  //   'height': 'auto',
+  //   'line-height': (posPer * 3 < 40 ? 40 : posPer * 3) + 'px'
+  // }).text(Math.round(posPer) + '%');
+
+  // $('.neg').css({
+  //   'width': negPer / 100 * 200 + 'px',
+  //   'height': 'auto',
+  //   'line-height': (negPer / 100 * 200 < 40 ? 40 : negPer / 100 * 200) + 'px'
+  // }).text(Math.round(negPer) + '%');
+  //
+  // $('.neu').css({
+  //   'width': neuPer + '%',
+  //   'height': 'auto',
+  //   'line-height': (neuPer * 3 < 40 ? 40 : neuPer * 3) + 'px'
+  // }).text(Math.round(neuPer) + '%');
+
+  // console.log(posMarkers.length / total_tweets * 100);
   // var markerClusterPos = new MarkerClusterer(map, posMarkers, {imagePath: 'javascripts/images/m'});
   // var markerClusterNeu = new MarkerClusterer(map, neuMarkers, {imagePath: 'javascripts/images/m'});
   // var markerClusterNeg = new MarkerClusterer(map, negMarkers, {imagePath: 'javascripts/images/m'});

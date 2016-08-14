@@ -20,21 +20,21 @@ block content
 
         form.form-horizontal
           .form-group
-            label.col-sm-2.control-label(for='what') What
-            .col-sm-10
+            label.col-sm-3.control-label(for='what') what
+            .col-sm-9
               input#what.form-control(type='text', placeholder='e.g. Olympics')
           .form-group
-            label.col-sm-2.control-label(for='where') Where
-            .col-sm-10
-              input#where.form-control(type='text', placeholder='e.g. Rio')
+            label.col-sm-3.control-label(for='where') where
+            .col-sm-9
+              input#where.form-control(type='text', placeholder='Rio')
 
           button.btn.btn-default(type='submit') Find it!
 
         br
 
-        p
-          a(role='button', data-toggle='collapse', href='#more', aria-expanded='false', aria-controls='more')
-            | Existing terms
+
+        a.existing.collapsed(role='button', data-toggle='collapse', href='#more', aria-expanded='false', aria-controls='more')
+          | Existing terms
 
         #more.collapse
           p
@@ -44,6 +44,12 @@ block content
           p
             a(href="?q=rio%2Colympics")
               | Rio Olympics
+
+        .circles.clearfix
+          h2 Stats
+          .circle.pos.smallCirc
+          .circle.neu.smallCirc
+          .circle.neg.smallCirc
 
       .col-md-9(id='map')
 

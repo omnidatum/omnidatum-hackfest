@@ -6,8 +6,21 @@
   background-color: #4c5b5c;
   height: 100%;
   color: #f6f5f4;
-  padding: 30px;
+  padding: 40px;
   font-family: 'Lato';
+  overflow: scroll;
+}
+
+.sidebar p {
+  margin-bottom: 25px;
+}
+
+.form-horizontal .control-label {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 5px;
 }
 
 .sidebar a {
@@ -16,9 +29,107 @@
 
 .sidebar img {
   padding-bottom: 30px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .sidebar .btn-default {
-  margin: 0 auto;
+  margin: 30px auto;
   display: block;
+  border-radius: 13px;
+  background-color: rgb(246, 245, 244);
+  width: 181px;
+  height: 52px;
+  font-weight: 900;
+  font-size: 19px;
+  color: #4c5b5c;
+}
+
+.sidebar .btn-default:hover {
+  background-color: rgb(246, 245, 244);
+  box-shadow: 0px 4px 0px 0px rgba(43, 54, 55, 0.004);
+}
+
+.sidebar input {
+  border: none;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  border-radius: 0;
+  padding: 0;
+}
+
+.sidebar .form-control:focus {
+  box-shadow: 0 0 0;
+}
+
+.form-control::-webkit-input-placeholder, .form-control:-moz-placeholder,
+.form-control::-moz-placeholder,.form-control:-ms-input-placeholder  {
+  color: #f6f5f4;
+  opacity: 0.67;
+}
+
+.existing:after {
+  padding-left: 5px;
+  content: '\25BE';
+  display: inline-block;
+}
+
+.existing.collapsed:after {
+  content:'\25B8';
+}
+
+.existing:hover:after {
+  text-decoration: none!important;
+
+}
+
+.circle {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  background: white;
+  float: left;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 80px;
+  color: #222;
+  min-width: 40px;
+  min-height: 40px;
+  -webkit-transition-duration: 2s;
+  -webkit-transition-property: all;
+  -webkit-transition-timing-function: ease-in-out;
+  height: 10px;
+  width: 10px;
+  color: rgba(0, 0, 0, 0);
+}
+
+.circle.pos {
+  background: #26D64F;
+}
+
+.circle.neu {
+  background: #FDE74C;
+}
+
+.circle.neg {
+  background: #D7263D;
+}
+
+.circle:last-child {
+  margin-right: 0;
+}
+
+.circles {
+  /*padding-top: 10px*/
+}
+
+.circles h2 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 20px;
 }
