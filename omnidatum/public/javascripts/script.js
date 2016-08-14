@@ -226,13 +226,19 @@ function initMap() {
   }
 
   //$(document).ready(function() {
-  window.onload=function(){
-    //setTimeout(function() {
+  if (total_tweets) {
+    window.onload=function(){
+      //setTimeout(function() {
       styleCircles('.pos', posPer);
       styleCircles('.neg', negPer);
       styleCircles('.neu', neuPer);
-    //}, 2000);
-  };
+      $('.stats-header').show();
+      //}, 2000);
+    };
+  } else {
+    $('.circle').hide();
+    $('.stats-header').hide();
+  }
   // $('.pos').css({
   //   'width': posPer + '%',
   //   'height': 'auto',
@@ -273,6 +279,10 @@ function getPoints() {
 
   return points;
 }
+
+$('button').click(function(e){
+  e.preventDefault();
+});
 
 function doLayout() {
   $('#map').height($(window).height() - $('nav').height());

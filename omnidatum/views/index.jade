@@ -16,7 +16,7 @@ block content
 
         img.img-responsive(src='/logo.png')
 
-        p See what - and where - people are thinking.
+        p.tagline Discover what your customers are feeling.
 
         form.form-horizontal
           .form-group
@@ -28,10 +28,7 @@ block content
             .col-sm-9
               input#where.form-control(type='text', placeholder='Rio')
 
-          button.btn.btn-default(type='submit') Find it!
-
-        br
-
+          button.btn.btn-default(type='submit', data-toggle="modal" data-target="#info") Find it!
 
         a.existing.collapsed(role='button', data-toggle='collapse', href='#more', aria-expanded='false', aria-controls='more')
           | Existing terms
@@ -46,16 +43,24 @@ block content
               | Rio Olympics
 
         .circles.clearfix
-          h2 Stats
+          h2.stats-header Stats
           .circle.pos.smallCirc
           .circle.neu.smallCirc
           .circle.neg.smallCirc
 
       .col-md-9(id='map')
 
-  //- form(action="", method="get")
-  //-   input(type="text", name="search", value="#{query}")
-  //-   input(type="button", value="Search")
+  #info.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4#myModalLabel.modal-title Contact Us
+        .modal-body
+          | Interested in <em>spot_hype</em> for your business or organisation? <a href="mailto:omnidatum.team@gmail.com">Drop us a line!</a>
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') OK
 
   script(type='text/javascript').
     var data = !{JSON.stringify(tweets)};

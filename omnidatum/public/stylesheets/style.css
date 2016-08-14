@@ -11,8 +11,12 @@
   overflow: scroll;
 }
 
-.sidebar p {
+.sidebar p.tagline {
   margin-bottom: 25px;
+}
+
+.stats-header {
+  /*display: none;*/
 }
 
 .form-horizontal .control-label {
@@ -103,6 +107,7 @@
   height: 10px;
   width: 10px;
   color: rgba(0, 0, 0, 0);
+  /*display: none;*/
 }
 
 .circle.pos {
