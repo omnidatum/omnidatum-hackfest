@@ -62,10 +62,12 @@
   border-bottom: 1px solid rgba(255,255,255,0.5);
   border-radius: 0;
   padding: 0;
+  color: #f6f5f4;
 }
 
 .sidebar .form-control:focus {
   box-shadow: 0 0 0;
+  border-bottom: 1px solid #f6f5f4;
 }
 
 .form-control::-webkit-input-placeholder, .form-control:-moz-placeholder,

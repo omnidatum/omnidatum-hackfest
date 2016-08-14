@@ -22,13 +22,13 @@ block content
           .form-group
             label.col-sm-3.control-label(for='what') what
             .col-sm-9
-              input#what.form-control(type='text', placeholder='e.g. Olympics')
+              input#what.form-control(type='text', name="q", placeholder='e.g. Olympics')
           .form-group
             label.col-sm-3.control-label(for='where') where
             .col-sm-9
               input#where.form-control(type='text', placeholder='Rio')
 
-          button.btn.btn-default(type='submit', data-toggle="modal" data-target="#info") Find it!
+          button.btn.btn-default(type='submit', data-toggle="modal" data-target="") Find it!
 
         a.existing.collapsed(role='button', data-toggle='collapse', href='#more', aria-expanded='false', aria-controls='more')
           | Existing terms

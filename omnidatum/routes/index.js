@@ -49,7 +49,7 @@ router.get('/', function(req, res, next) {
   //   console.log('Line from file:', line);
   // });
 
-  var q = req.query.q;
+  var q = req.query.q.toLowerCase();
 
   if (q) {
     request('http://150.242.42.16:3000/?track=' + q, function(error, response, body) {

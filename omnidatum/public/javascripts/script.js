@@ -281,7 +281,7 @@ function getPoints() {
 }
 
 $('button').click(function(e){
-  e.preventDefault();
+  // e.preventDefault();
 });
 
 function doLayout() {
