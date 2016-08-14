@@ -33,6 +33,12 @@ var Promise = require('bluebird');
 var datumf=function(e){};
 ls.stdout.on('data', function(data){return datumf(data)});
 
+    function replaceURLWithHTMLLinks(text)
+    {
+      var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+      return text.replace(exp,""); 
+    }
+
 function promiseGetEmo(text) {
     return new Promise(function (resolve, reject) {
 var curstr=''
@@ -72,6 +78,12 @@ console.log(e,curstr)
 
  };
 
+text=replaceURLWithHTMLLinks(text)
+text=text.replace(/#/g, '')
+text=text.replace(/@/g, '')
+text=text.replace(/^RT /g, '')
+console.log(text)
+
 	ls.stdin.write(text+"\n")
 	
     });
@@ -85,7 +97,7 @@ var promiseFor = Promise.method(function(condition, action, value) {
 promiseFor(function() {
     return true;
 }, function(count) {
-console.log(ourq[0])
+//console.log(ourq[0])
 if(!ourq.length){
 return Promise.delay(500)
 }
@@ -95,7 +107,7 @@ return Promise.delay(300)
     return promiseGetEmo(ourq[0].text.replace(/\./g, '')).timeout(2000)
              .then(function(res) { 
 		console.log(JSON.stringify(res), ourq[0].id)
-		Tweet.update({index:ourq[0].id}, { $set: { emo_class: res }},{ multi: true },function(e, n){ })
+		Tweet.findOneAndUpdate({index:ourq[0].id}, { emo_class: res/*{"k":"kek"}*/ },{ upsert: false },function(e, n){ })
 		ourq.shift()
                 return ++count;
              })
