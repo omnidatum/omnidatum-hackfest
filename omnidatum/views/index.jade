@@ -22,11 +22,11 @@ block content
           .form-group
             label.col-sm-3.control-label(for='what') what
             .col-sm-9
-              input#what.form-control(type='text', name="q", placeholder='e.g. Olympics')
+              input#what.form-control(type='text', name="q", value="#{query}", placeholder='e.g. Olympics')
           .form-group
             label.col-sm-3.control-label(for='where') where
             .col-sm-9
-              input#where.form-control(type='text', placeholder='Rio')
+              input#where.form-control(value="#{where}", name="where", type='text', placeholder='Rio')
 
           button.btn.btn-default(type='submit', data-toggle="modal" data-target="") Find it!
 
@@ -64,7 +64,7 @@ block content
 
   script(type='text/javascript').
     var data = !{JSON.stringify(tweets)};
-    var q = "#{query}";
+    var q = "!{query.toLowerCase()}";
 
   script(src='/javascripts/script.js')
 

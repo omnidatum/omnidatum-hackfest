@@ -50,10 +50,13 @@ router.get('/', function(req, res, next) {
   // });
 
   var q = req.query.q;
-  q = q ? q.toLowerCase() : '';
+  q = q ? q : '';
+
+  var where = req.query.where;
+  where = where ? where : '';
 
   if (q) {
-    request('http://150.242.42.16:3000/?track=' + q, function(error, response, body) {
+    request('http://150.242.42.16:3000/?track=' + q.toLowerCase(), function(error, response, body) {
       if(error) {
         console.log(error);
       } else {
@@ -73,11 +76,11 @@ router.get('/', function(req, res, next) {
             tweets.push(tweet);
           } catch (e) {}
         }
-        res.render('index', { title: 'Tweets', query: q, tweets: tweets });
+        res.render('index', { title: 'Tweets', query: q, tweets: tweets, where: where });
       }
     });
   } else {
-    res.render('index', { title: 'Tweets', query: q, tweets: [] });
+    res.render('index', { title: 'Tweets', query: q, tweets: [], where: where });
   }
 
 });

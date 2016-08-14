@@ -49,7 +49,7 @@ function getColor(sentiment) {
 
 function initMap() {
   var center = {lat: 0, lng: 163.4719644};
-
+  
   if (q == 'trump') {
     center = {lat: 35.0931652, lng: -95.527725};
   } else if (q == 'rio,olympics') {
