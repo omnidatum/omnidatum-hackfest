@@ -72,11 +72,13 @@ router.get('/', function(req, res, next) {
             tweets.push(tweet);
           } catch (e) {}
         }
-
         res.render('index', { title: 'Tweets', query: q, tweets: tweets });
       }
     });
+  } else {
+    res.render('index', { title: 'Tweets', query: q, tweets: [] });
   }
+
 });
 
 module.exports = router;

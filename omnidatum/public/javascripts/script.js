@@ -48,9 +48,16 @@ function getColor(sentiment) {
 }
 
 function initMap() {
+  var center = {lat: 0, lng: 163.4719644};
+  if (q == 'trump') {
+    center = {lat: 35.0931652, lng: -95.527725};
+  } else if (q == 'rio,olmpics') {
+    center = {lat: -22.9103552, lng: -43.7285295};
+  }
+
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: {lat: -22.9103552, lng: -43.7285295},
+    zoom: 2,
+    center: center,
     disableDefaultUI: true, // Hide all controls.
     mapTypeControl: false,
     scaleControl: true,
@@ -59,7 +66,99 @@ function initMap() {
       style: google.maps.ZoomControlStyle.LARGE
     },
     // mapTypeId: google.maps.MapTypeId.ROADMAP,
-    styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":40}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-10},{"lightness":30}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":10}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":60}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]}]
+    styles:
+    [
+      {
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#444444"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+          {
+            "color": "#f2f2f2"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+          {
+            "saturation": -100
+          },
+          {
+            "lightness": 45
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "simplified"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+          {
+            "color": "#7bb3a1"
+          },
+          {
+            "visibility": "on"
+          },
+          {
+            "lightness": "10"
+          },
+          {
+            "gamma": "1.00"
+          },
+          {
+            "weight": "1.00"
+          },
+          {
+            "saturation": "13"
+          }
+        ]
+      }
+    ]
   });
 
   // heatmap = new google.maps.visualization.HeatmapLayer({

@@ -1,3 +1,24 @@
 .navbar {
   margin-bottom: 0;
 }
+
+.sidebar {
+  background-color: #4c5b5c;
+  height: 100%;
+  color: #f6f5f4;
+  padding: 30px;
+  font-family: 'Lato';
+}
+
+.sidebar a {
+  color: #f6f5f4;
+}
+
+.sidebar img {
+  padding-bottom: 30px;
+}
+
+.sidebar .btn-default {
+  margin: 0 auto;
+  display: block;
+}

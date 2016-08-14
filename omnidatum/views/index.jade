@@ -10,7 +10,42 @@ block content
       height: 100%;
     }
 
-  div(id='map')
+  .container-fluid(style='height:100%;')
+    .row(style='height:100%;')
+      .col-md-3.sidebar
+
+        img.img-responsive(src='/logo.png')
+
+        p See what - and where - people are thinking.
+
+        form.form-horizontal
+          .form-group
+            label.col-sm-2.control-label(for='what') What
+            .col-sm-10
+              input#what.form-control(type='text', placeholder='e.g. Olympics')
+          .form-group
+            label.col-sm-2.control-label(for='where') Where
+            .col-sm-10
+              input#where.form-control(type='text', placeholder='e.g. Rio')
+
+          button.btn.btn-default(type='submit') Find it!
+
+        br
+
+        p
+          a(role='button', data-toggle='collapse', href='#more', aria-expanded='false', aria-controls='more')
+            | Existing terms
+
+        #more.collapse
+          p
+            a(href="?q=trump")
+              | Trump
+
+          p
+            a(href="?q=rio%2Colympics")
+              | Rio Olympics
+
+      .col-md-9(id='map')
 
   //- form(action="", method="get")
   //-   input(type="text", name="search", value="#{query}")
@@ -18,6 +53,7 @@ block content
 
   script(type='text/javascript').
     var data = !{JSON.stringify(tweets)};
+    var q = "#{query}";
 
   script(src='/javascripts/script.js')
 
